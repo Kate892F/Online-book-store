@@ -1,9 +1,10 @@
 package com.bookstore.repository.impl;
 
+import com.bookstore.exception.DataProcessingException;
 import com.bookstore.model.Book;
 import com.bookstore.repository.BookRepository;
-import com.bookstore.repository.exception.DataProcessingException;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,6 +45,16 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery(
                 "SELECT b FROM Book b", Book.class).getResultList();
+        } catch (Exception e) {
+            throw new DataProcessingException("Failed to get books", e);
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            Book book = session.find(Book.class, id);
+            return Optional.ofNullable(book);
         } catch (Exception e) {
             throw new DataProcessingException("Failed to get books", e);
         }

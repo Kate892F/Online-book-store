@@ -1,4 +1,4 @@
-package com.bookstore.repository.exception;
+package com.bookstore.exception;
 
 public class DataProcessingException extends RuntimeException {
 
