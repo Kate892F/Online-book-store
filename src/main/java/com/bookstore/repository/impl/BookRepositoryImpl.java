@@ -56,7 +56,7 @@ public class BookRepositoryImpl implements BookRepository {
             Book book = session.find(Book.class, id);
             return Optional.ofNullable(book);
         } catch (Exception e) {
-            throw new DataProcessingException("Failed to get books", e);
+            throw new DataProcessingException("Failed to find book by id: " + id, e);
         }
     }
 }
