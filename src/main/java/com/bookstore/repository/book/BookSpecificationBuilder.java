@@ -4,17 +4,17 @@ import com.bookstore.dto.BookSearchParametersDto;
 import com.bookstore.model.Book;
 import com.bookstore.repository.SpecificationBuilder;
 import com.bookstore.repository.SpecificationProviderManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
 
     private static final String TITLE_KEY = "title";
     private static final String ISBN_KEY = "isbn";
-    @Autowired
-    private SpecificationProviderManager<Book> bookSpecificationProviderManager;
+    private final SpecificationProviderManager<Book> bookSpecificationProviderManager;
 
     @Override
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
